@@ -1,6 +1,7 @@
 var express = require("express");
 var mongoose = require("mongoose");
 var bodyparser = require("body-parser");
+var cors = require("cors");
 var port = process.env.PORT || 4201;
 const { createServer } = require("http");
 const { Server } = require("socket.io");
@@ -18,7 +19,6 @@ io.on('connection',(socket)=>{
     })
 });
 
-
 var cliente_router = require("./routes/cliente");
 var usuario_router = require("./routes/usuario");
 var producto_router = require("./routes/producto");
@@ -29,6 +29,14 @@ var venta_router = require("./routes/venta");
 //parseando los datos con bodyparser
 app.use(bodyparser.urlencoded({limit: '50mb', extended: true}));
 app.use(bodyparser.json({limit: '50mb', extended: true}));
+
+//Usar cors para permitir peticiones desde el frontend
+app.use(cors({
+    origin: 'https://pizza-grados-1.onrender.com', // Cambia esta URL por la de tu frontend desplegado
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Authorization', 'X-API-KEY', 'Origin', 'X-Requested-With', 'Content-Type', 'Accept'],
+    credentials: true
+}));
 
 //Este código es por una advertencia de mongoose por el strictQuery en desuso
 mongoose.set("strictQuery", false);
@@ -49,17 +57,6 @@ mongoose.connect(mongoUri, (err, res) => {
         });
     }
 });
-
-//este cod permite la trasferencia de un servidor externo a nuestro backend
-//para evitar los errores de cors
-app.use((req,res,next)=>{
-    res.header('Access-Control-Allow-Origin','*'); 
-    res.header('Access-Control-Allow-Headers','Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Access-Control-Allow-Request-Method');
-    res.header('Access-Control-Allow-Methods','GET, PUT, POST, DELETE, OPTIONS');
-    res.header('Allow','GET, PUT, POST, DELETE, OPTIONS');
-    next();
-});
-
 
 app.use('/api',cliente_router);
 app.use('/api',usuario_router);
