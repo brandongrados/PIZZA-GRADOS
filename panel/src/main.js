@@ -9,7 +9,7 @@ import { ModalPlugin } from 'bootstrap-vue'
 
 
 Vue.config.productionTip = false
-Vue.prototype.$url = 'http://localhost:4201/api'
+Vue.prototype.$url = process.env.VUE_APP_API_URL || 'http://localhost:4201/api'
 Vue.prototype.$token = localStorage.getItem('token');
 Vue.prototype.$ganancia = 30;
 
