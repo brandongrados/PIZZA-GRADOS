@@ -33,12 +33,19 @@ app.use(bodyparser.json({limit: '50mb', extended: true}));
 //Este código es por una advertencia de mongoose por el strictQuery en desuso
 mongoose.set("strictQuery", false);
 
-mongoose.connect("mongodb+srv://bgradosalvarez:vglL40EhDZDtaFu9@cluster0.k8hf1cj.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0",(err,res)=>{
-    if(err){
+const mongoUri = process.env.MONGODB_URI;
+
+if (!mongoUri) {
+    console.error("Error: La variable de entorno MONGODB_URI no está definida.");
+    process.exit(1);
+}
+
+mongoose.connect(mongoUri, (err, res) => {
+    if (err) {
         console.log(err);
-    }else{
-        httpServer.listen(port,function(){
-            console.log("servidor corriendo como tortuguita "+port );
+    } else {
+        httpServer.listen(port, function () {
+            console.log("servidor corriendo como tortuguita " + port);
         });
     }
 });
