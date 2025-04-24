@@ -1,7 +1,7 @@
 var express = require("express");
 var mongoose = require("mongoose");
 var bodyparser = require("body-parser");
-var port = process.env.port || 4201;
+var port = process.env.PORT || 4201;
 const { createServer } = require("http");
 const { Server } = require("socket.io");
 
