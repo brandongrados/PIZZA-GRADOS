@@ -9,7 +9,11 @@ import { ModalPlugin } from 'bootstrap-vue'
 
 
 Vue.config.productionTip = false
-Vue.prototype.$url = process.env.VUE_APP_API_URL || 'http://localhost:4201/api'
+let apiUrl = process.env.VUE_APP_API_URL || 'http://localhost:4201/api'
+if (!apiUrl.endsWith('/api')) {
+  apiUrl = apiUrl.replace(/\/+$/, '') + '/api'
+}
+Vue.prototype.$url = apiUrl
 console.log('API URL:', Vue.prototype.$url)
 
 Vue.prototype.$token = localStorage.getItem('token');
