@@ -30,7 +30,7 @@
             <a href="./profile-posts.html" class="dropdown-item">Profile</a>
             <a href="./account-general.html" class="dropdown-item">Settings</a>
             <hr class="dropdown-divider" />
-            <a href="./sign-in.html" class="dropdown-item">Logout</a>
+<a href="#" class="dropdown-item" @click.prevent="logout">Logout</a>
           </div>
         </div>
       </div>
@@ -41,5 +41,11 @@
 <script>
 export default {
   name: "TopNav",
+  methods: {
+    logout() {
+      this.$store.dispatch('logout');
+      this.$router.push({ name: 'login' });
+    }
+  }
 };
 </script>
