@@ -8,13 +8,18 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 import SocketIO from 'socket.io-client'
 
 
-const socketConnection = SocketIO('http://localhost:4201')
+let apiUrl = process.env.VUE_APP_API_URL || 'http://localhost:4201/api'
+if (!apiUrl.endsWith('/api')) {
+  apiUrl = apiUrl.replace(/\/+$/, '') + '/api'
+}
+const socketUrl = process.env.VUE_APP_SOCKET_URL || 'http://localhost:4201'
 
+const socketConnection = SocketIO(socketUrl)
 
 Vue.config.productionTip = false
 Vue.prototype.$envio=0;
 Vue.prototype.$paises = ['Argentina','Chile','Perú','Bolivia','Colombia'];
-Vue.prototype.$url = 'http://localhost:4201/api';
+Vue.prototype.$url = apiUrl;
 Vue.prototype.$token = localStorage.getItem('token');
 Vue.use(BootstrapVue)
 Vue.use(new VueSocketIO({
