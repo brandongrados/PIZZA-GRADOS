@@ -83,7 +83,7 @@
 
         <!-- Navigation -->
         <ul class="navbar-nav">
-          <li class="nav-item">
+          <!---<li class="nav-item">
             <a
               class="nav-link"
               href="#sidebarDashboards"
@@ -97,7 +97,7 @@
             <div class="collapse show" id="sidebarDashboards">
               <ul class="nav nav-sm flex-column">
                 <li class="nav-item">
-                  <a href="./index.html" class="nav-link"> Default </a>
+                  <a href="./index.html" class="nav-link active"> Default </a>
                 </li>
                 <li class="nav-item">
                   <a
@@ -114,12 +114,12 @@
                 </li>
               </ul>
             </div>
-          </li>
+          </li>-->
 
-          <li class="nav-item active">
+          <li class="nav-item">
             <router-link
               to="/colaborador"
-              class="nav-link"
+              class="nav-link active"
               active-class="active"
               ><i class="fe fe-user"></i> Colaboradores</router-link
             >
