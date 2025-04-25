@@ -76,7 +76,6 @@
 
 <script>
 import axios from "axios";
-import store from "@/store/index";
 
 export default {
   name: "LoginApp",
@@ -109,7 +108,7 @@ export default {
         password: this.password,
       };
       axios
-        .post("https://pizza-grados.onrender.com/api/login_usuario", data, {
+        .post(this.$url + "/login_usuario", data, {
           headers: {
             "Content-Type": "application/json",
           },
