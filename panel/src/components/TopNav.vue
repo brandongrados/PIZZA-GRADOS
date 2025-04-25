@@ -27,10 +27,10 @@
 
           <!-- Menu -->
           <div class="dropdown-menu dropdown-menu-end">
-            <a href="./profile-posts.html" class="dropdown-item">Profile</a>
+            <!--<a href="./profile-posts.html" class="dropdown-item">Profile</a>
             <a href="./account-general.html" class="dropdown-item">Settings</a>
-            <hr class="dropdown-divider" />
-<a href="#" class="dropdown-item" @click.prevent="logout">Logout</a>
+            <hr class="dropdown-divider" />-->
+<a href="#" class="dropdown-item" @click.prevent="logout">Salir</a>
           </div>
         </div>
       </div>

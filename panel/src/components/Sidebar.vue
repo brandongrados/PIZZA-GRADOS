@@ -83,7 +83,7 @@
 
         <!-- Navigation -->
         <ul class="navbar-nav">
-          <!---<li class="nav-item">
+          <li class="nav-item">
             <a
               class="nav-link"
               href="#sidebarDashboards"
@@ -114,7 +114,7 @@
                 </li>
               </ul>
             </div>
-          </li>-->
+          </li>
 
           <li class="nav-item">
             <router-link
