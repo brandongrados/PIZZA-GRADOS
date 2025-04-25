@@ -31,8 +31,17 @@ app.use(bodyparser.urlencoded({limit: '50mb', extended: true}));
 app.use(bodyparser.json({limit: '50mb', extended: true}));
 
 //Usar cors para permitir peticiones desde el frontend
+const allowedOrigins = ['https://pizza-grados-1.onrender.com', 'https://pizza-grados-2.onrender.com'];
+
 app.use(cors({
-    origin: 'https://pizza-grados-1.onrender.com', // Cambia esta URL por la de tu frontend desplegado
+    origin: function(origin, callback){
+        if(!origin) return callback(null, true);
+        if(allowedOrigins.indexOf(origin) === -1){
+            var msg = 'The CORS policy for this site does not allow access from the specified Origin.';
+            return callback(new Error(msg), false);
+        }
+        return callback(null, true);
+    },
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Authorization', 'X-API-KEY', 'Origin', 'X-Requested-With', 'Content-Type', 'Accept'],
     credentials: true
