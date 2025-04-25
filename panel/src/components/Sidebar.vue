@@ -97,7 +97,7 @@
             <div class="collapse show" id="sidebarDashboards">
               <ul class="nav nav-sm flex-column">
                 <li class="nav-item">
-                  <a href="./index.html" class="nav-link active"> Default </a>
+                  <a href="./index.html" class="nav-link"> Default </a>
                 </li>
                 <li class="nav-item">
                   <a
@@ -116,7 +116,7 @@
             </div>
           </li>
 
-          <li class="nav-item">
+          <li class="nav-item active">
             <router-link
               to="/colaborador"
               class="nav-link"
@@ -229,6 +229,14 @@
     </div>
   </nav>
 </template>
+<style>
+@media (min-width: 768px) {
+    .navbar-vertical.navbar-expand-md .navbar-brand-img {
+        max-height: 5rem;
+    }
+}
+
+</style>
 
 <script>
 export default {
