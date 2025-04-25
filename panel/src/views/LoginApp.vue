@@ -109,7 +109,7 @@ export default {
         password: this.password,
       };
       axios
-        .post(this.$url + "/login_usuario", data, {
+        .post("https://pizza-grados.onrender.com/api/login_usuario", data, {
           headers: {
             "Content-Type": "application/json",
           },
