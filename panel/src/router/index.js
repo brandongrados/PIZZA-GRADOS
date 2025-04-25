@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import store from '@/store/index'
+import store from '../store/index'
+
 import HomeView from '../views/HomeView.vue'
 import LoginApp from '../views/LoginApp.vue'
 import CreateColaboradorApp from '../views/colaboradores/CreateColaboradorApp.vue'
@@ -46,38 +47,32 @@ const router = new VueRouter({
   routes
 })
 
-router.beforeEach((to, from,next) => {
-  // ...
-  // explicitly return false to cancel the navigation
-  if(to.matched.some(item=>item.meta.requiresAuth)){
-    if(!store.state.token){
-      next({
-        name: 'login'
-      });
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(item => item.meta.requiresAuth)) {
+    if (!store.getters.isAuthenticated) {
+      next({ name: 'login' });
+      return;
     }
 
     try {
-      jwt_decode(store.state.token)
+      jwt_decode(store.getters.token);
     } catch (error) {
-      next({
-        name: 'login'
-      });
+      next({ name: 'login' });
+      return;
     }
 
-    if(jwt_decode(store.state.token).exp*1000<= new Date().getTime()){
-      console.log('llego al chompi');
-      next({
-        name: 'login'
-      });
+    if (jwt_decode(store.getters.token).exp * 1000 <= new Date().getTime()) {
+      console.log('Token expirado');
+      next({ name: 'login' });
+      return;
     }
-    next()
 
-    console.log('privada');
-  }
-  else{
-    console.log('publica');
+    console.log('Ruta privada');
+    next();
+  } else {
+    console.log('Ruta pública');
     next();
   }
-})
+});
 
 export default router

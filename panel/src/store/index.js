@@ -8,6 +8,8 @@ export default new Vuex.Store({
     token: localStorage.getItem('token'),
   },
   getters: {
+    isAuthenticated: state => !!state.token,
+    token: state => state.token,
   },
   mutations: {
     setToken(state, token){
@@ -19,7 +21,7 @@ export default new Vuex.Store({
       commit('setToken', token);
       localStorage.setItem('token',token)
     },
-    logout(commit){
+    logout({commit}){
       commit('setToken',null);
       localStorage.clear();
     }
