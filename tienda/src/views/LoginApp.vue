@@ -177,14 +177,15 @@ export default {
                 "Content-Type": "application/json",
               },
             })
-            .then((result) => {
-              if (result.data.message) {
-                this.msm_error = result.data.message;
-              } else {
-                this.msm_error = "";
-                console.log(result);
-              }
-            });
+.then((result) => {
+  if (result.data.message) {
+    this.msm_error = result.data.message;
+  } else {
+    this.msm_error = "";
+    alert("Cuenta creada exitosamente");
+    console.log(result);
+  }
+});
       }
       console.log(this.cliente);
     },

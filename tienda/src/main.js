@@ -6,6 +6,8 @@ import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 import VueSocketIO from 'vue-socket.io'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import SocketIO from 'socket.io-client'
+import '@fortawesome/fontawesome-free/css/all.css'
+
 
 
 let apiUrl = process.env.VUE_APP_API_URL || 'http://localhost:4201/api'
