@@ -11,6 +11,7 @@ var path = require('path');
 
 
 const registro_producto_admin = async function(req,res){
+    console.log("Archivos recibidos:", req.files);
     if(req.user){
        let data = req.body;
        let productos = await Producto.find({
