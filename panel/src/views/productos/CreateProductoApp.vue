@@ -409,7 +409,8 @@ export default {
       }
     },
 
-    registro() {
+registro() {
+      console.log("Producto portada file:", this.producto.portada);
       var fm = new FormData();
       fm.append("titulo", this.producto.titulo);
       fm.append("categoria", this.producto.categoria);
@@ -420,7 +421,7 @@ export default {
       fm.append("descuento", this.producto.descuento);
       fm.append("portada", this.producto.portada); //imagen de portada
 
-axios
+      axios
         .post(this.$url + "/registro_producto_admin", fm, {
           headers: {
             Authorization: this.$store.state.token,
