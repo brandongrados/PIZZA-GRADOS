@@ -420,10 +420,10 @@ export default {
       fm.append("descuento", this.producto.descuento);
       fm.append("portada", this.producto.portada); //imagen de portada
 
-      axios
+axios
         .post(this.$url + "/registro_producto_admin", fm, {
           headers: {
-            "Content-Type": "multipart/from-data",
+            "Content-Type": "multipart/form-data",
             Authorization: this.$store.state.token,
           },
         })
@@ -444,6 +444,15 @@ export default {
             });
             this.$router.push({ name: "producto-index" });
           }
+        })
+        .catch((error) => {
+          console.error("Error en la solicitud:", error);
+          this.$notify({
+            group: "foo",
+            title: "ERROR",
+            text: "No se pudo guardar el producto. Error en la solicitud.",
+            type: "error",
+          });
         });
     },
 

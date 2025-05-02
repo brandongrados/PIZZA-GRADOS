@@ -19,13 +19,7 @@
                 <h6 class="text-uppercase mb-0">Iniciar Sesión</h6>
               </div>
               <div class="block-body">
-                <p class="text-muted">
-                  Pellentesque habitant morbi tristique senectus et netus et
-                  malesuada fames ac turpis egestas. Vestibulum tortor quam,
-                  feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu
-                  libero sit amet quam egestas semper. Aenean ultricies mi vitae
-                  est. Mauris placerat eleifend leo.
-                </p>
+                
                 <hr />
                 <form action="customer-orders.html" method="get">
                   <div class="mb-4">
@@ -74,11 +68,7 @@
                 <h6 class="text-uppercase mb-0">Nueva cuenta</h6>
               </div>
               <div class="block-body">
-                <p class="text-muted">
-                  With registration with us new world of fashion, fantastic
-                  discounts and much more opens to you! The whole process will
-                  not take you more than a minute!
-                </p>
+              
 
                 <hr />
                 <form action="customer-orders.html" method="get">
