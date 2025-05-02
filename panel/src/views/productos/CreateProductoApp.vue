@@ -423,7 +423,6 @@ export default {
 axios
         .post(this.$url + "/registro_producto_admin", fm, {
           headers: {
-            "Content-Type": "multipart/form-data",
             Authorization: this.$store.state.token,
           },
         })
