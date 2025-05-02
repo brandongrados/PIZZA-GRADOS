@@ -33,6 +33,7 @@ const registro_producto_admin = async function(req,res){
             var producto = await Producto.create(data);
         res.status(200).send({data:producto});
         } catch (error) {//si quiero obtener mas detalles del error puedo validar este objeto 
+            console.error("Error al guardar producto:", error);
             res.status(200).send({data:undefined, message: 'no se pudo guardar el producto'});
         }
 
