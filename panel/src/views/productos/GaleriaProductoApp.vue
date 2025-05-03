@@ -252,7 +252,7 @@ export default {
         axios
           .post(this.$url + "/subir_imagen_producto_admin", fm, {
             headers: {
-              "Content-Type": "multipart/from-data",
+              "Content-Type": "multipart/form-data",
               Authorization: this.$store.state.token,
             },
           })

@@ -343,8 +343,7 @@ const subir_imagen_producto_admin = async function(req,res){
 
         //registro producto
         var img_path = req.files.imagen.path;
-        var str_img = img_path.split('\\');
-        var str_imagen = str_img[2];
+        var str_imagen = path.basename(img_path);
         //////////////
 
         data.imagen = str_imagen;
