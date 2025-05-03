@@ -9,7 +9,14 @@ var path_ingreso = multipart({uploadDir:'./uploads/facturas'});//del multipart
 var path_galeria = multipart({uploadDir:'./uploads/galeria'});//del multipart
 
 
-api.post('/registro_producto_admin',[path, authenticate.decodeToken],productoController.registro_producto_admin);
+function logRequest(req, res, next) {
+  console.log("Headers:", req.headers);
+  console.log("Body:", req.body);
+  console.log("Files:", req.files);
+  next();
+}
+
+api.post('/registro_producto_admin', logRequest, path, authenticate.decodeToken, productoController.registro_producto_admin);
 api.get('/listar_productos_admin/:filtro?',authenticate.decodeToken,productoController.listar_productos_admin);
 api.get('/listar_activos_productos_admin',authenticate.decodeToken,productoController.listar_activos_productos_admin);
 
