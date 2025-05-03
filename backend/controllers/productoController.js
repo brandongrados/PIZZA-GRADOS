@@ -511,7 +511,7 @@ const obtener_ingresos_admin = async function(req,res){
        var ingresos = await Ingreso.find({
         createdAt:{
             $gte: new Date(inicio+'T00:00:00'),
-            $lt: new Date(hasta+'T00:00:00')
+            $lt: new Date(new Date(hasta+'T00:00:00').getTime() + 24*60*60*1000)
         }
        });
        res.status(200).send(ingresos);
