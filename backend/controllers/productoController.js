@@ -23,9 +23,12 @@ const registro_producto_admin = async function(req,res){
         res.status(200).send({data:undefined, message: 'el titulo del producto ya existe'});
        }else{
         //registro producto
+        //var img_path = req.files.portada.path;
+        //var str_img = img_path.split('\\');
+        //var str_portada = str_img[2];
         var img_path = req.files.portada.path;
-        var str_img = img_path.split('\\');
-        var str_portada = str_img[2];
+        var str_portada = path.basename(img_path);
+
         //////////////
 
         data.portada = str_portada;
