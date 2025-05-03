@@ -74,4 +74,18 @@ app.use('/api',public_router);
 app.use('/api',customer_router);
 app.use('/api',venta_router);
 
+// Serve frontend static files
+const path = require('path');
+const frontendPath = path.join(__dirname, '../tienda/dist');
+app.use(express.static(frontendPath));
+
+// Catch-all route to serve index.html for client-side routing support
+app.get('*', (req, res) => {
+  if (!req.path.startsWith('/api')) {
+    res.sendFile(path.join(frontendPath, 'index.html'));
+  } else {
+    res.status(404).send('API route not found');
+  }
+});
+
 module.exports = app;
