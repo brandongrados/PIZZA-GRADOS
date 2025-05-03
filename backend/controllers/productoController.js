@@ -280,8 +280,9 @@ const registro_ingreso_admin = async function(req,res){
 
         //registro ingreso
         var img_path = req.files.documento.path;
-        var str_img = img_path.split('\\');
-        var str_documento = str_img[2];
+        //var str_img = img_path.split('\\');
+        //var str_documento = str_img[2];
+        var str_documento = path.basename(img_path);
 
         data.documento = str_documento;
         data.usuario = req.user.sub;
