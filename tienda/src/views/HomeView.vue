@@ -217,7 +217,7 @@
 import HelloWorld from "@/components/HelloWorld.vue";
 import axios from 'axios'
 import currency_formatter from "currency-formatter";
-import {init_carousel} from '../../public/assets/js/theme.d7b4a888'
+//import {init_carousel} from '../../public/assets/js/theme.d7b4a888'
 
 export default {
   name: "HomeView",
@@ -267,7 +267,7 @@ export default {
   beforeMount(){
     this.init_nuevos_productos();
     this.init_productos_recomendados();
-    init_carousel.init();
+    window.init_carousel.init();
   }
 };
 </script>
