@@ -492,7 +492,7 @@ $(function () {
     objectFitImages();
 });
 
-export const init_carousel = {
+window.init_carousel = {
     init: function(){
     
     //   Product Slider
