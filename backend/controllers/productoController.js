@@ -104,107 +104,106 @@ const actualizar_producto_admin = async function(req,res){
 
        if(productos.length >= 1){
         if(productos[0]._id == id){
-            if(req.files){
+            if(req.files && req.files.portada){
                 var img_path = req.files.portada.path;
-            var str_img = img_path.split('\\');
-            var str_portada = str_img[2];
-            //////////////
-    
-            data.portada = str_portada;
-            data.slug = slugify(data.titulo);//el slugify es un paquete para quitar espacios y simbolos y los convierte en guiones, es el nombre que se ve en la url de las paginas
-            try {
-                let producto = await Producto.findByIdAndUpdate({_id:id},{
-    titulo:data.titulo,
-    categoria: data.categoria,
-    subcategoria: data.subcategoria,
-    extracto:data.extracto,
-    estado:data.estado,
-    str_variedad:data.str_variedad,
-    descuento:data.descuento,
-    portada:data.portada
-                }
-                );
-            res.status(200).send({data:producto});
-            } catch (error) {//si quiero obtener mas detalles del error puedo validar este objeto 
-                res.status(200).send({data:undefined, message: 'no se pudo guardar el producto'});
-            }
-    
-            }else{
-                
-    
-                data.slug = slugify(data.titulo);//el slugify es un paquete para quitar espacios y simbolos y los convierte en guiones, es el nombre que se ve en la url de las paginas
-                try {
-                    let producto = await Producto.findByIdAndUpdate({_id:id},{
-        titulo:data.titulo,
-        categoria: data.categoria,
-        subcategoria: data.subcategoria,
-        extracto:data.extracto,
-        estado:data.estado,
-        str_variedad:data.str_variedad,
-        descuento:data.descuento,
-    
+                var str_portada = path.basename(img_path);
+
+                // Eliminar imagen antigua
+                let productoAntiguo = await Producto.findById(id);
+                if(productoAntiguo && productoAntiguo.portada){
+                    let pathImagenAntigua = './uploads/productos/' + productoAntiguo.portada;
+                    if(fs.existsSync(pathImagenAntigua)){
+                        fs.unlinkSync(pathImagenAntigua);
                     }
-                    );
-                res.status(200).send({data:producto});
-                } catch (error) {//si quiero obtener mas detalles del error puedo validar este objeto 
-                    res.status(200).send({data:undefined, message: 'no se pudo guardar el producto'});
                 }
 
+                data.portada = str_portada;
+                data.slug = slugify(data.titulo);
+
+                try {
+                    let producto = await Producto.findByIdAndUpdate({_id:id},{
+                        titulo:data.titulo,
+                        categoria: data.categoria,
+                        subcategoria: data.subcategoria,
+                        extracto:data.extracto,
+                        estado:data.estado,
+                        str_variedad:data.str_variedad,
+                        descuento:data.descuento,
+                        portada:data.portada
+                    }, {new: true});
+                    res.status(200).send({data:producto});
+                } catch (error) {
+                    res.status(200).send({data:undefined, message: 'no se pudo guardar el producto'});
+                }
+            }else{
+                data.slug = slugify(data.titulo);
+                try {
+                    let producto = await Producto.findByIdAndUpdate({_id:id},{
+                        titulo:data.titulo,
+                        categoria: data.categoria,
+                        subcategoria: data.subcategoria,
+                        extracto:data.extracto,
+                        estado:data.estado,
+                        str_variedad:data.str_variedad,
+                        descuento:data.descuento,
+                    }, {new: true});
+                    res.status(200).send({data:producto});
+                } catch (error) {
+                    res.status(200).send({data:undefined, message: 'no se pudo guardar el producto'});
+                }
             }
         }else{
             res.status(200).send({data:undefined, message: 'El título del producto ya existe.'});
         }
     }else{
-        //registro producto
-        if(req.files){
-        var img_path = req.files.portada.path;
-        var str_img = img_path.split('\\');
-        var str_portada = str_img[2];
-        //////////////
+        if(req.files && req.files.portada){
+            var img_path = req.files.portada.path;
+            var str_portada = path.basename(img_path);
 
-        data.portada = str_portada;
-        data.slug = slugify(data.titulo);//el slugify es un paquete para quitar espacios y simbolos y los convierte en guiones, es el nombre que se ve en la url de las paginas
-        try {
-            let producto = await Producto.findByIdAndUpdate({_id:id},{
-            titulo:data.titulo,
-            categoria: data.categoria,
-            subcategoria: data.subcategoria,
-            extracto:data.extracto,
-            estado:data.estado,
-            str_variedad:data.str_variedad,
-            descuento:data.descuento,
-            portada:data.portada
+            // Eliminar imagen antigua
+            let productoAntiguo = await Producto.findById(id);
+            if(productoAntiguo && productoAntiguo.portada){
+                let pathImagenAntigua = './uploads/productos/' + productoAntiguo.portada;
+                if(fs.existsSync(pathImagenAntigua)){
+                    fs.unlinkSync(pathImagenAntigua);
+                }
             }
-            );
-        res.status(200).send({data:producto});
-        } catch (error) {//si quiero obtener mas detalles del error puedo validar este objeto
-            res.status(200).send({data:undefined, message: 'no se pudo guardar el producto'});
-        }
 
-        }else{
-
-
-            data.slug = slugify(data.titulo);//el slugify es un paquete para quitar espacios y simbolos y los convierte en guiones, es el nombre que se ve en la url de las paginas
+            data.portada = str_portada;
+            data.slug = slugify(data.titulo);
             try {
                 let producto = await Producto.findByIdAndUpdate({_id:id},{
-            titulo:data.titulo,
-            categoria: data.categoria,
-            subcategoria: data.subcategoria,
-            extracto:data.extracto,
-            estado:data.estado,
-            str_variedad:data.str_variedad,
-            descuento:data.descuento,
-                  
-                }
-                );
-            res.status(200).send({data:producto});
-            } catch (error) {//si quiero obtener mas detalles del error puedo validar este objeto 
+                    titulo:data.titulo,
+                    categoria: data.categoria,
+                    subcategoria: data.subcategoria,
+                    extracto:data.extracto,
+                    estado:data.estado,
+                    str_variedad:data.str_variedad,
+                    descuento:data.descuento,
+                    portada:data.portada
+                }, {new: true});
+                res.status(200).send({data:producto});
+            } catch (error) {
                 res.status(200).send({data:undefined, message: 'no se pudo guardar el producto'});
             }
-
+        }else{
+            data.slug = slugify(data.titulo);
+            try {
+                let producto = await Producto.findByIdAndUpdate({_id:id},{
+                    titulo:data.titulo,
+                    categoria: data.categoria,
+                    subcategoria: data.subcategoria,
+                    extracto:data.extracto,
+                    estado:data.estado,
+                    str_variedad:data.str_variedad,
+                    descuento:data.descuento,
+                }, {new: true});
+                res.status(200).send({data:producto});
+            } catch (error) {
+                res.status(200).send({data:undefined, message: 'no se pudo guardar el producto'});
+            }
         }
-
-        }
+    }
     }else{
         res.status(500).send({data:undefined, message: 'Error token2'});
     }
