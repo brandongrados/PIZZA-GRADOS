@@ -302,6 +302,28 @@
     color: white !important;
     border: none !important;
 }
+.detail-slider.owl-carousel.owl-theme.owl-dots-modern {
+    display: block !important;
+    white-space: nowrap;
+}
+
+.detail-slider.owl-carousel.owl-theme.owl-dots-modern .item {
+    display: inline-block !important;
+    white-space: normal;
+    vertical-align: top;
+    width: 100% !important;
+}
+
+.detail-slider.owl-carousel.owl-theme.owl-dots-modern .owl-stage {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+}
+
+.detail-slider.owl-carousel.owl-theme.owl-dots-modern .owl-item {
+    flex: 0 0 100% !important;
+    max-width: 100% !important;
+}
+
 </style>
 
 <script>
