@@ -305,7 +305,6 @@
 </style>
 
 <script>
-import{init_carousel} from '../../../public/assets/js/theme.d7b4a888.js';
 import axios from 'axios';
 import currency_formatter from "currency-formatter";
 import moment from 'moment';
@@ -441,8 +440,8 @@ export default{
     },
     beforeMount(){
 
-        init_carousel.init_galeria();
-        init_carousel.init_zoom();
+        window.init_carousel.init_galeria();
+        window.init_carousel.init_zoom();
         this.init_data();
         
     }
