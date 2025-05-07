@@ -54,6 +54,12 @@
                             <img class="img-fluid" :src="$url+'/obtener_galeria_producto/'+galeria[4].imagen" alt="Modern Jacket 1">
                         </a>
                     </div>
+                    console.log('Galeria:', this.galeria);
+                    console.log('Variedades:', this.variedades);
+                    console.log('Producto:', this.producto);
+                    console.log('Productos relacionados:', this.productos_relacionados);
+                    console.log('Reviews:', this.reviews);
+                    console.log('Objeto carrito:', this.obj_carrito);
                     </div>
                 </div>
                 </div>

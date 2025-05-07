@@ -387,7 +387,9 @@ const eliminar_galeria_producto_admin = async function(req,res){
         try {
             let reg = await Galeria.findById({_id:id})
             let path_img = './uploads/galeria/'+reg.imagen;
-            fs.unlinkSync(path_img);
+            if(fs.existsSync(path_img)){
+                fs.unlinkSync(path_img);
+            }
             let galeria = await Galeria.findByIdAndRemove({_id:id});
        res.status(200).send(galeria);
         } catch (error) {
