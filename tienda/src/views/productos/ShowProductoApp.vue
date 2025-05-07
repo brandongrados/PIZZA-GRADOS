@@ -291,28 +291,7 @@
 </template>
 
 <style>
-.detail-nav-link.nav-link.active, .detail-nav-link.nav-link:hover, .detail-nav-link.nav-link:focus {
-    color: #ffffff !important;
-    border-color: #fff #fff #343a40 !important;
-    background: #cb250e !important;
-}
 
-.bg_variedad{
-    background: #cb250e !important;
-    color: white !important;
-    border: none !important;
-}
-.detail-slider.owl-carousel.owl-theme.owl-dots-modern {
-    display: block !important;
-    white-space: nowrap;
-}
-
-.detail-slider.owl-carousel.owl-theme.owl-dots-modern .item {
-    display: inline-block !important;
-    white-space: normal;
-    vertical-align: top;
-    width: 100% !important;
-}
 
 .detail-slider.owl-carousel.owl-theme.owl-dots-modern .owl-stage {
     display: flex !important;
