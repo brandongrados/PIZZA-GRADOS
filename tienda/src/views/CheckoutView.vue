@@ -223,12 +223,12 @@ export default{
           });
         }
         },
-        creatPreferencia(){
+creatPreferencia(){
           let data = {
             back_urls:{
-              success:'http://localhost:8081/verificacion/success/'+this.venta.direccion,
-              pending:'http://localhost:8081/verificacion/pending',
-              failure:'http://localhost:8081/verificacion/failure'
+              success:'https://pizza-grados-2.onrender.com/verificacion/success/'+this.venta.direccion,
+              pending:'https://pizza-grados-2.onrender.com/verificacion/pending',
+              failure:'https://pizza-grados-2.onrender.com/verificacion/failure'
             },
             items:this.items,
             auto_return:'approved'
@@ -236,11 +236,11 @@ export default{
           axios.post('https://api.mercadopago.com/checkout/preferences',data,{
             headers:{
               'Content-Type':'application/json',
-              'Authorization': 'Bearer TEST-6917747394643487-031914-470cadf0faa18a96ee9658d277a2b555-613305432'
+              'Authorization': 'Bearer APP_USR-4489702597758896-050815-e4671d87d18ac5791b3acb1c84fbc04b-613305432'
             }
           }).then((result)=>{
             console.log(result);
-            window.location.href = result.data.sandbox_init_point;
+            window.location.href = result.data.init_point;
 
           })
         }

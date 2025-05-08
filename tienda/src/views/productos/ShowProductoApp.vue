@@ -390,7 +390,6 @@ export default{
                 }
             }).then((result)=>{
                 this.productos_relacionados = result.data.productos;
-                
             }).catch((error) => {
                 if (error.response && error.response.status === 403) {
                     alert('No tienes permiso para acceder a este recurso. Por favor, inicia sesión.');
@@ -409,7 +408,6 @@ export default{
                 $('.detail-option-btn-label').removeClass('bg_variedad');
                 $('#variedad_'+value).addClass('bg_variedad');
             },50);
-            
         },
         add_cart(){
             if(!this.obj_carrito.variedad){
@@ -437,7 +435,6 @@ export default{
                     }
                 });
             }
-           
         }
     },
     beforeMount(){
@@ -445,7 +442,6 @@ export default{
         window.init_carousel.init_galeria();
         window.init_carousel.init_zoom();
         this.init_data();
-        
     }
 }
 </script>

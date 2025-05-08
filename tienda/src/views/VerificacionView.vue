@@ -149,11 +149,11 @@ export default {
                
             })
         },
-        init_payment(payment_id){
+init_payment(payment_id){
             axios.get('https://api.mercadopago.com/v1/payments/'+payment_id,{
                 headers:{
                     'Content-Type':'application/json',
-                    'Authorization': 'Bearer TEST-6917747394643487-031914-470cadf0faa18a96ee9658d277a2b555-613305432'
+                    'Authorization': 'Bearer APP_USR-4489702597758896-050815-e4671d87d18ac5791b3acb1c84fbc04b-613305432'
                 }
             }).then((result)=>{
                 
