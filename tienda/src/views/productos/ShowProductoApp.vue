@@ -56,16 +56,8 @@
                     </div>
                     
                     </div>
-                    <OwlCarousel class="detail-slider owl-theme owl-dots-modern" :items="1" :loop="true" :nav="true" :dots="true" :autoplay="true" :autoplayTimeout="5000" :autoplayHoverPause="true" :smartSpeed="1000" :margin="10" :responsive="{0:{items:1},600:{items:1},1000:{items:1}}">
-                        <div class="item" v-for="(item, index) in galeria" :key="index">
-                            <a class="glightbox" :href="$url+'/obtener_galeria_producto/'+item.imagen" data-title="Modern Jacket 1 - Caption text" data-gallery="product-gallery">
-                                <img class="img-fluid" :src="$url+'/obtener_galeria_producto/'+item.imagen" alt="Modern Jacket 1">
-                            </a>
-                        </div>
-                    </OwlCarousel>
                 </div>
                 </div>
-
             </div>
             <div class="col-lg-5 ps-lg-4 order-1 order-lg-2">
                 <ul class="breadcrumb undefined">
@@ -318,13 +310,9 @@
 import axios from 'axios';
 import currency_formatter from "currency-formatter";
 import moment from 'moment';
-import OwlCarousel from 'vue-owl-carousel';
-
+import $ from 'jquery';
 export default{
     name: 'ShowProductoApp',
-    components: {
-        OwlCarousel
-    },
     data(){
         return{
             galeria:[],
@@ -453,7 +441,11 @@ export default{
         }
     },
     beforeMount(){
+
+        window.init_carousel.init_galeria();
+        window.init_carousel.init_zoom();
         this.init_data();
+        
     }
 }
 </script>
