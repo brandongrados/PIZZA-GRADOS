@@ -2,6 +2,7 @@ var express = require("express");
 var mongoose = require("mongoose");
 var bodyparser = require("body-parser");
 var cors = require("cors");
+var path = require("path");
 var port = process.env.PORT || 4201;
 const { createServer } = require("http");
 const { Server } = require("socket.io");
@@ -74,5 +75,12 @@ app.use('/api',public_router);
 app.use('/api',customer_router);
 app.use('/api',venta_router);
 
+// Servir archivos estáticos del frontend
+app.use(express.static(path.join(__dirname, '../tienda/dist')));
+
+// Ruta catch-all para manejar rutas del frontend (Vue Router history mode)
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../tienda/dist/index.html'));
+});
 
 module.exports = app;
