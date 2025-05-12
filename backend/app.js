@@ -75,12 +75,14 @@ app.use('/api',public_router);
 app.use('/api',customer_router);
 app.use('/api',venta_router);
 
+const frontendDistPath = path.resolve(process.cwd(), 'tienda/dist');
+
 // Servir archivos estáticos del frontend
-app.use(express.static(path.join(__dirname, '../tienda/dist')));
+app.use(express.static(frontendDistPath));
 
 // Ruta catch-all para manejar rutas del frontend (Vue Router history mode)
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../tienda/dist/index.html'));
+    res.sendFile(path.join(frontendDistPath, 'index.html'));
 });
 
 module.exports = app;
