@@ -16,14 +16,14 @@ function logRequest(req, res, next) {
   next();
 }
 
-api.post('/registro_producto_admin', logRequest, path, authenticate.decodeToken, productoController.registro_producto_admin);
+api.post('/registro_producto_admin', logRequest, authenticate.decodeToken, productoController.registro_producto_admin);
 api.get('/listar_productos_admin/:filtro?',authenticate.decodeToken,productoController.listar_productos_admin);
 api.get('/listar_activos_productos_admin',authenticate.decodeToken,productoController.listar_activos_productos_admin);
 
 
 api.get('/obtener_portada_producto/:img',productoController.obtener_portada_producto);
 api.get('/obtener_producto_admin/:id',authenticate.decodeToken,productoController.obtener_producto_admin);
-api.put('/actualizar_producto_admin/:id',[authenticate.decodeToken,path],productoController.actualizar_producto_admin);
+api.put('/actualizar_producto_admin/:id',authenticate.decodeToken,productoController.actualizar_producto_admin);
 
 ///////////////////////////////////////////////
 

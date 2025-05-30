@@ -60,7 +60,7 @@
 
                       <!-- Text -->
                       <small class="text-muted">
-                        PNG or JPG no bigger than 1000px wide and tall.
+                        PNG o JPG no más grande que 1000px ancho y alto
                       </small>
                     </div>
                   </div>
@@ -70,7 +70,7 @@
                   <!-- Button -->
 
                   <label for="file-upload" class="btn btn-sm btn-primary">
-                    Upload
+                    Cargar
                   </label>
                   <input
                     style="display: none"
@@ -299,6 +299,15 @@
 import Sidebar from "@/components/Sidebar.vue";
 import TopNav from "@/components/TopNav.vue";
 import axios from "axios";
+import cloudinary from 'cloudinary';// Configura tus credenciales de API de Cloudinary
+
+cloudinary.config({
+  cloud_name: 'ddavlkcwx',
+  api_key: '633622439537975',
+  api_secret: 'UqNdYUNA-v2rdsgtTME2Zo2Xl2Y'
+});
+
+// ...
 export default {
   name: "CreateProductoApp",
   components: {
@@ -324,7 +333,7 @@ export default {
     this.init_categorias();
   },
   methods: {
-    uploadImage($event) {
+    /*uploadImage($event) {
       var image;
       if ($event.target.files.length >= 1) {
         image = $event.target.files[0];
@@ -358,7 +367,47 @@ export default {
         this.portada = undefined;
       }
       console.log(this.portada);
+    },*/
+
+    uploadImage($event) {
+    var image;
+    if ($event.target.files.length >= 1) {
+      image = $event.target.files[0];
+    }
+    if (image.size <= 1000000) {
+      if (
+        image.type == "image/jpeg" ||
+        image.type == "image/png" ||
+        image.type == "image/webp" ||
+        image.type == "image/jpg"
+      ) {
+        // Sube la imagen a Cloudinary
+        cloudinary.uploader.upload(image, (result) => {
+          this.str_image = result.secure_url;
+          this.portada = result.public_id;
+          this.producto.portada = this.portada;
+        });
+      } else {
+        this.$notify({
+          group: "foo",
+          title: "ERROR",
+          text: "El recurso debe ser una imagen",
+          type: "error",
+        });
+        this.portada = undefined;
+      }
+    } else {
+      this.$notify({
+        group: "foo",
+        title: "ERROR",
+        text: "La imagen debe ser menos de 1MB",
+        type: "error",
+      });
+      this.portada = undefined;
+    }
     },
+
+
     validar() {
       if (!this.producto.titulo) {
         this.$notify({

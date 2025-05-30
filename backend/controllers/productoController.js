@@ -11,37 +11,24 @@ var path = require('path');
 
 
 const registro_producto_admin = async function(req,res){
-    console.log("Archivos recibidos:", req.files);
     if(req.user){
        let data = req.body;
        let productos = await Producto.find({
         titulo:data.titulo
        });
-       console.log(productos.length);
-
        if(productos.length >= 1){
         res.status(200).send({data:undefined, message: 'el titulo del producto ya existe'});
        }else{
-        //registro producto
-        //var img_path = req.files.portada.path;
-        //var str_img = img_path.split('\\');
-        //var str_portada = str_img[2];
-        var img_path = req.files.portada.path;
-        var str_portada = path.basename(img_path);
-
-        //////////////
-
-        data.portada = str_portada;
+        // Ahora se espera que data.portada sea el public_id o URL de Cloudinary
         data.slug = slugify(data.titulo);//el slugify es un paquete para quitar espacios y simbolos y los convierte en guiones, es el nombre que se ve en la url de las paginas
         try {
             var producto = await Producto.create(data);
-        res.status(200).send({data:producto});
-        } catch (error) {//si quiero obtener mas detalles del error puedo validar este objeto 
+            res.status(200).send({data:producto});
+        } catch (error) {
             console.error("Error al guardar producto:", error);
             res.status(200).send({data:undefined, message: 'no se pudo guardar el producto'});
         }
-
-        }
+       }
     }else{
         res.status(500).send({data:undefined, message: 'Error token2'});
     }
@@ -100,76 +87,10 @@ const actualizar_producto_admin = async function(req,res){
         let productos = await Producto.find({
         titulo:data.titulo
        });
-       console.log(productos.length);
 
        if(productos.length >= 1){
         if(productos[0]._id == id){
-            if(req.files && req.files.portada){
-                var img_path = req.files.portada.path;
-                var str_portada = path.basename(img_path);
-
-                // Eliminar imagen antigua
-                let productoAntiguo = await Producto.findById(id);
-                if(productoAntiguo && productoAntiguo.portada){
-                    let pathImagenAntigua = './uploads/productos/' + productoAntiguo.portada;
-                    if(fs.existsSync(pathImagenAntigua)){
-                        fs.unlinkSync(pathImagenAntigua);
-                    }
-                }
-
-                data.portada = str_portada;
-                data.slug = slugify(data.titulo);
-
-                try {
-                    let producto = await Producto.findByIdAndUpdate({_id:id},{
-                        titulo:data.titulo,
-                        categoria: data.categoria,
-                        subcategoria: data.subcategoria,
-                        extracto:data.extracto,
-                        estado:data.estado,
-                        str_variedad:data.str_variedad,
-                        descuento:data.descuento,
-                        portada:data.portada
-                    }, {new: true});
-                    res.status(200).send({data:producto});
-                } catch (error) {
-                    res.status(200).send({data:undefined, message: 'no se pudo guardar el producto'});
-                }
-            }else{
-                data.slug = slugify(data.titulo);
-                try {
-                    let producto = await Producto.findByIdAndUpdate({_id:id},{
-                        titulo:data.titulo,
-                        categoria: data.categoria,
-                        subcategoria: data.subcategoria,
-                        extracto:data.extracto,
-                        estado:data.estado,
-                        str_variedad:data.str_variedad,
-                        descuento:data.descuento,
-                    }, {new: true});
-                    res.status(200).send({data:producto});
-                } catch (error) {
-                    res.status(200).send({data:undefined, message: 'no se pudo guardar el producto'});
-                }
-            }
-        }else{
-            res.status(200).send({data:undefined, message: 'El título del producto ya existe.'});
-        }
-    }else{
-        if(req.files && req.files.portada){
-            var img_path = req.files.portada.path;
-            var str_portada = path.basename(img_path);
-
-            // Eliminar imagen antigua
-            let productoAntiguo = await Producto.findById(id);
-            if(productoAntiguo && productoAntiguo.portada){
-                let pathImagenAntigua = './uploads/productos/' + productoAntiguo.portada;
-                if(fs.existsSync(pathImagenAntigua)){
-                    fs.unlinkSync(pathImagenAntigua);
-                }
-            }
-
-            data.portada = str_portada;
+            // Ahora se espera que data.portada sea el public_id o URL de Cloudinary
             data.slug = slugify(data.titulo);
             try {
                 let producto = await Producto.findByIdAndUpdate({_id:id},{
@@ -187,21 +108,24 @@ const actualizar_producto_admin = async function(req,res){
                 res.status(200).send({data:undefined, message: 'no se pudo guardar el producto'});
             }
         }else{
-            data.slug = slugify(data.titulo);
-            try {
-                let producto = await Producto.findByIdAndUpdate({_id:id},{
-                    titulo:data.titulo,
-                    categoria: data.categoria,
-                    subcategoria: data.subcategoria,
-                    extracto:data.extracto,
-                    estado:data.estado,
-                    str_variedad:data.str_variedad,
-                    descuento:data.descuento,
-                }, {new: true});
-                res.status(200).send({data:producto});
-            } catch (error) {
-                res.status(200).send({data:undefined, message: 'no se pudo guardar el producto'});
-            }
+            res.status(200).send({data:undefined, message: 'El título del producto ya existe.'});
+        }
+    }else{
+        data.slug = slugify(data.titulo);
+        try {
+            let producto = await Producto.findByIdAndUpdate({_id:id},{
+                titulo:data.titulo,
+                categoria: data.categoria,
+                subcategoria: data.subcategoria,
+                extracto:data.extracto,
+                estado:data.estado,
+                str_variedad:data.str_variedad,
+                descuento:data.descuento,
+                portada:data.portada
+            }, {new: true});
+            res.status(200).send({data:producto});
+        } catch (error) {
+            res.status(200).send({data:undefined, message: 'no se pudo guardar el producto'});
         }
     }
     }else{
@@ -340,16 +264,11 @@ const subir_imagen_producto_admin = async function(req,res){
     if(req.user){
        let data = req.body;
 
-        //registro producto
-        var img_path = req.files.imagen.path;
-        var str_imagen = path.basename(img_path);
-        //////////////
-
-        data.imagen = str_imagen;
+        // Ahora se espera que data.imagen sea el public_id o URL de Cloudinary
         try {
             let imagen = await Galeria.create(data);
-        res.status(200).send(imagen);
-        } catch (error) {//si quiero obtener mas detalles del error puedo validar este objeto 
+            res.status(200).send(imagen);
+        } catch (error) {
             res.status(200).send({data:undefined, message: 'no se pudo guardar el producto'});
         }
     }else{
