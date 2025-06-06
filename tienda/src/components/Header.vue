@@ -8,7 +8,7 @@
       <div class="container-fluid">
         <!-- Navbar Header  -->
         <router-link class="navbar-brand" to="/">
-          <img src="/assets/media/logo/logo_completo.png" alt="Logo" style="width: 170px; height: 55px;" />
+          <img src="/assets/media/logo/logo_completo2.png" alt="Logo" style="width: 170px; height: 55px;" />
         
         </router-link>
         <button
@@ -29,8 +29,8 @@
               <router-link class="nav-link" to="/" >INICIO</router-link>
             </li>
             <li class="nav-item">
-              <router-link class="nav-link" :to="{name:'shop'}" >ROPAS</router-link>
-            </li>
+              <router-link class="nav-link" :to="{name:'shop'}" >Pizzas</router-link>
+            </li> 
             
             
           </ul>
