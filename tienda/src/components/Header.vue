@@ -8,7 +8,7 @@
       <div class="container-fluid">
         <!-- Navbar Header  -->
         <router-link class="navbar-brand" to="/">
-          <img src="/assets/media/logo/logo_completo2.png" alt="Logo" style="width: 170px; height: 55px;" />
+          <img src="/assets/media/logo/logo_completo1.png" alt="Logo" style="width: 170px; height: 55px;" />
         
         </router-link>
         <button
