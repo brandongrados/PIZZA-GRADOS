@@ -299,13 +299,13 @@
 import Sidebar from "@/components/Sidebar.vue";
 import TopNav from "@/components/TopNav.vue";
 import axios from "axios";
-import cloudinary from 'cloudinary';// Configura tus credenciales de API de Cloudinary
+//import cloudinary from 'cloudinary';// Configura tus credenciales de API de Cloudinary
 
-cloudinary.config({
+/*cloudinary.config({
   cloud_name: 'ddavlkcwx',
   api_key: '633622439537975',
   api_secret: 'UqNdYUNA-v2rdsgtTME2Zo2Xl2Y'
-});
+});*/
 
 // ...
 export default {
@@ -369,7 +369,7 @@ export default {
       console.log(this.portada);
     },*/
 
-    uploadImage($event) {
+    /*uploadImage($event) {
     var image;
     if ($event.target.files.length >= 1) {
       image = $event.target.files[0];
@@ -405,8 +405,51 @@ export default {
       });
       this.portada = undefined;
     }
-    },
+    },*/
+    async uploadImage(event) {
+      if (event.target.files.length === 0) return;
 
+      const image = event.target.files[0];
+
+      if (image.size > 1000000) {
+        this.$notify({ group: "foo", title: "ERROR", text: "La imagen debe ser menos de 1MB", type: "error" });
+        this.portada = undefined;
+        return;
+      }
+
+      const allowedTypes = ["image/jpeg", "image/png", "image/webp", "image/jpg"];
+      if (!allowedTypes.includes(image.type)) {
+        this.$notify({ group: "foo", title: "ERROR", text: "El recurso debe ser una imagen", type: "error" });
+        this.portada = undefined;
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append('image', image); // 'image' es el nombre del campo que el backend espera
+
+      try {
+        const response = await fetch('/api/upload-image', { // Ajusta la URL a tu endpoint de backend
+          method: 'POST',
+          body: formData,
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          this.str_image = data.secure_url;
+          this.portada = data.public_id;
+          this.producto.portada = this.portada;
+          this.$notify({ group: "foo", title: "ÉXITO", text: "Imagen subida correctamente", type: "success" });
+        } else {
+          this.$notify({ group: "foo", title: "ERROR", text: data.msg || "Error al subir la imagen", type: "error" });
+          this.portada = undefined;
+        }
+      } catch (error) {
+        console.error("Error al conectar con el servidor:", error);
+        this.$notify({ group: "foo", title: "ERROR", text: "Error de red al subir la imagen", type: "error" });
+        this.portada = undefined;
+      }
+    },
 
     validar() {
       if (!this.producto.titulo) {
@@ -430,7 +473,7 @@ export default {
           text: "Seleccione la subcategoria del producto",
           type: "error",
         });
-      } 
+      }
       else if (!this.producto.extracto) {
         this.$notify({
           group: "foo",
