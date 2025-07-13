@@ -62,7 +62,7 @@
             <div class="col-lg-5 ps-lg-4 order-1 order-lg-2">
                 <ul class="breadcrumb undefined">
                 <li class="breadcrumb-item"><router-link to="/">Inicio</router-link></li>
-                <li class="breadcrumb-item"><router-link to="/shop">Tienda</router-link></li>
+                <li class="breadcrumb-item"><router-link to="/shop">Pizzas</router-link></li>
                 <li class="breadcrumb-item"><router-link :to="{name:'shop',query:{categoria:producto.categoria}}">{{producto.categoria}}</router-link></li>
                 </ul>
                 <h2 class="mb-4">{{producto.titulo}}</h2>

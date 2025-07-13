@@ -6,7 +6,7 @@
           <div
             class="col-lg-6 dark-overlay split-screen-column align-items-center align-items-lg-end"
             style="
-              background-image: url(https://res.cloudinary.com/ddavlkcwx/image/upload/v1745286686/cld-sample-5.jpg);
+              background-image: url(https://res.cloudinary.com/ddavlkcwx/image/upload/v1745287452/PORTADA_DE_WEB_PIZZA_FAMILIAR_2_n22q7c.png);
               background-color: #d2cecb;
               background-size: cover;
               background-position: center;
@@ -19,7 +19,7 @@
           <div
             class="col-lg-6 split-screen-column align-items-center align-items-lg-end"
             style="
-              background-image: url(https://res.cloudinary.com/ddavlkcwx/image/upload/v1745286685/cld-sample-3.jpg);
+              background-image: url(https://res.cloudinary.com/ddavlkcwx/image/upload/v1745287040/PORTADA_DE_WEB_PIZZA_FAMILIAR_qtu8gf.png);
               background-color: #e5b6b4;
               background-size: cover;
               background-position: center;
