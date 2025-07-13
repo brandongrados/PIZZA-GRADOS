@@ -406,7 +406,7 @@ export default {
       this.portada = undefined;
     }
     },*/
-    async uploadImage(event) {
+    /*async uploadImage(event) {
       if (event.target.files.length === 0) return;
 
       const image = event.target.files[0];
@@ -449,8 +449,44 @@ export default {
         this.$notify({ group: "foo", title: "ERROR", text: "Error de red al subir la imagen", type: "error" });
         this.portada = undefined;
       }
-    },
+    },*/
+    // ... (código previo)
 
+async uploadImage(event) {
+  // ... (validaciones)
+
+  const formData = new FormData();
+  formData.append('image', image);
+
+  try {
+    // Define la URL base de tu backend usando la variable de entorno
+    // Asumo que el archivo .env.production de tu frontend tiene VUE_APP_BACKEND_URL
+    const BASE_URL = process.env.VUE_APP_BACKEND_URL || '';
+
+    // Utiliza la URL base y el endpoint correcto
+    const response = await fetch(`${BASE_URL}/api/upload-image-product`, { // <-- ¡IMPORTANTE AQUÍ!
+      method: 'POST',
+      body: formData,
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+      this.str_image = data.secure_url;
+      this.portada = data.public_id;
+      this.producto.portada = this.portada;
+      this.$notify({ group: "foo", title: "ÉXITO", text: "Imagen subida correctamente", type: "success" });
+    } else {
+      this.$notify({ group: "foo", title: "ERROR", text: data.msg || "Error al subir la imagen", type: "error" });
+      this.portada = undefined;
+    }
+  } catch (error) {
+    console.error("Error al conectar con el servidor:", error);
+    this.$notify({ group: "foo", title: "ERROR", text: "Error de red al subir la imagen", type: "error" });
+    this.portada = undefined;
+  }
+},
+// ... (resto de tu componente)
     validar() {
       if (!this.producto.titulo) {
         this.$notify({
